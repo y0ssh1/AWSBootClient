@@ -6,6 +6,6 @@ task :setup_ssh do
 end
 
 desc 'Stop all running instances'
-task :stop_instance do
+task :stop_instances do
   SetupSSH.stop
 end

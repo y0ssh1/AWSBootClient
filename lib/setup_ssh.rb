@@ -20,7 +20,7 @@ class SetupSSH
 
     def stop
       ids = fetch_instances(state: 'running').map(&:instance_id)
-      @@client.stop(instance_ids: ids)
+      @@client.stop_instances(instance_ids: ids)
       begin
         @@client.wait_until(:instance_stopped, instance_ids: ids) do |w|
           w.interval = 15
