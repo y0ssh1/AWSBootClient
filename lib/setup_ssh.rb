@@ -8,9 +8,10 @@ class SetupSSH
       ids = fetch_instances(state: 'stopped').map(&:instance_id)
       @@client.start_instances(instance_ids: ids)
       @@client.wait_until(:instance_running, instance_ids: ids)
-      config = clinet.fetch_instances(state: 'running').map(&:public_ip_addess)
-        .map { |name, ip_addresses| config_for_instance(ip_address) }
+      config = fetch_instances(state: 'running').map(&:public_ip_address)
+        .map { |ip_address| config_for_instance(ip_address) }
         .flatten
+        .join("\n")
 
       target_dir = "#{ENV['HOME']}/.ssh/conf.d"
       FileUtils.mkdir_p(target_dir)
